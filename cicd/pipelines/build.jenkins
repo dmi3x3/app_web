@@ -15,6 +15,7 @@ podTemplate(label: label,
         }
         stage('Dep') {
             echo 'Hello from Dep stage'
+            echo 'Helo from Dep stage aka build docker image'
         }
         stage('Test') {
             echo 'Hello from Test stage'
