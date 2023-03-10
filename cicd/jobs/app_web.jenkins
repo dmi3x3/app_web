@@ -1,41 +1,19 @@
-#!groovy
-// Run docker build
-pipeline{
+#!/usr/bin/env groovy
 
-	agent any
+pipelineJob('example-job') {
+    displayName('Example Job')
 
-	environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred-raja')
-	}
-
-	stages {
-
-		stage('Build') {
-
-			steps {
-				sh 'docker build -t dmi3x3/app_web:latest .'
-			}
-		}
-
-		stage('Login') {
-
-			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			}
-		}
-
-		stage('Push') {
-
-			steps {
-				sh 'docker push dmi3x3/app_web:latest'
-			}
-		}
-	}
-
-	post {
-		always {
-			sh 'docker logout'
-		}
-	}
-
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url('https://github.com/dmi3x3/app_web.git')
+                    }
+                    branches('*/master')
+                }
+            }
+            scriptPath('cicd/pipelines/build.jenkins')
+        }
+    }
 }
