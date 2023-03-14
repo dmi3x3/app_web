@@ -2,8 +2,6 @@
 
 def label = "example-pipeline-${UUID.randomUUID().toString()}"
 
-triggers { pollSCM('* * * * *') }
-
 podTemplate(label: label,
         containers: [
                 containerTemplate(name: 'jnlp', image: 'jenkins/inbound-agent:latest'),
@@ -24,6 +22,12 @@ podTemplate(label: label,
         }
         stage('Build') {
             echo 'Hello from Build stage'
+        }
+        stage('Docker Build') {
+    	    agent any
+            steps {
+      	            sh 'docker build -t shanem/spring-petclinic:latest .'
+            }
         }
     }
 }
