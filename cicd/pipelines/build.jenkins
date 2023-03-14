@@ -16,7 +16,7 @@ podTemplate(label: label,
         stage('Dep') {
             echo 'Hello from Dep stage'
             echo 'Helo from Dep stage aka build docker image'
-            sh 'docker build -t shanem/spring-petclinic:latest .'
+            sh 'docker build -t dmi3x3/app_web:1.0.1 .'
         }
         stage('Test') {
             echo 'Hello from Test stage'
