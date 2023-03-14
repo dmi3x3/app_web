@@ -16,18 +16,13 @@ podTemplate(label: label,
         stage('Dep') {
             echo 'Hello from Dep stage'
             echo 'Helo from Dep stage aka build docker image'
+            sh 'docker build -t shanem/spring-petclinic:latest .'
         }
         stage('Test') {
             echo 'Hello from Test stage'
         }
         stage('Build') {
             echo 'Hello from Build stage'
-        }
-        stage('Docker Build') {
-    	    agent any
-            steps {
-      	            sh 'docker build -t shanem/spring-petclinic:latest .'
-            }
         }
     }
 }
