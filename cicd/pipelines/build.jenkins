@@ -48,7 +48,7 @@ spec:
                     def repo = checkout scm
                     revision = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
                     branch = repo.GIT_BRANCH.take(20).replaceAll('/', '_')
-                    if (branch != 'master') {
+                    if (branch != 'main') {
                         revision += "-${branch}"
                     }
                     sh "echo 'Building revision: ${revision}'"
