@@ -32,10 +32,15 @@ spec:
 """
         }
     }
+//    options {
+//        skipDefaultCheckout true
+//    }
+    triggers { pollSCM('* * * * *') }
     options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
         skipDefaultCheckout true
     }
-
     stages {
         stage ('checkout') {
             steps {
