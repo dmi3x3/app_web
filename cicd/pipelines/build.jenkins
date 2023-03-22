@@ -79,7 +79,9 @@ spec:
             steps {
                 container('docker') {
                     script {
-                        sh "docker login -u "$username" -p "$password""
+                        sh """
+                        docker login -u $username" -p $password
+                        """
                     }
                     sh "docker push dmi3x3/app_web:${revision}"
                 }
