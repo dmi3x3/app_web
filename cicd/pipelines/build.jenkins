@@ -69,12 +69,6 @@ spec:
             }
         }
         stage ('publish artifact') {
-            when {
-                expression {
-                    branch != 'main'
-                }
-            }
-
             steps {
                 container('docker') {
                     script {
@@ -82,6 +76,13 @@ spec:
                     }
                 }
             }
+
+            when {
+                expression {
+                    branch != 'main'
+                }
+            }
+
             steps {
                 container('docker') {
                     script {
