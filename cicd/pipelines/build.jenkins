@@ -69,13 +69,6 @@ spec:
             }
         }
         stage ('publish artifact') {
-            steps {
-                container('docker') {
-                    script {
-                        sh "docker login -u $username -p $password"
-                    }
-                }
-            }
 
             when {
                 expression {
@@ -86,8 +79,9 @@ spec:
             steps {
                 container('docker') {
                     script {
-                        sh "docker push dmi3x3/app_web:${revision}"
+                        sh "docker login -u $username -p $password"
                     }
+                    sh "docker push dmi3x3/app_web:${revision}"
                 }
             }
         }
