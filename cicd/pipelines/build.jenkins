@@ -20,6 +20,9 @@ spec:
   containers:
   - name: docker
     image: docker:18.09.2
+    envFrom:
+    - secretRef:
+      name: docker-secret
     command: ["cat"]
     tty: true
     volumeMounts:
