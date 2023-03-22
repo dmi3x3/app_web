@@ -22,7 +22,7 @@ spec:
     image: docker:18.09.2
     envFrom:
       - secretRef:
-        name: docker-secret
+          name: docker-secret
     command: ["cat"]
     tty: true
     volumeMounts:
@@ -74,9 +74,19 @@ spec:
                     branch != 'main'
                 }
             }
+
             steps {
                 container('docker') {
-                    sh "docker push dmi3x3/app_web:${revision}"
+                    script {
+                        sh "docker login -u $username -p $password"
+                    }
+                }
+            }
+            steps {
+                container('docker') {
+                    script {
+                        sh "docker push dmi3x3/app_web:${revision}"
+                    }
                 }
             }
         }
