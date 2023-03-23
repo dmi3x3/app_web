@@ -4,6 +4,8 @@ def branch
 def revision
 def registryIp
 
+
+
 pipeline {
 
     agent {
@@ -22,7 +24,7 @@ spec:
     image: docker:18.09.2
     envFrom:
       - secretRef:
-          name: docker-secret1
+          name: docker-secret
     command: ["cat"]
     tty: true
     volumeMounts:
@@ -53,7 +55,7 @@ spec:
                     revision = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
                     branch = repo.GIT_BRANCH.take(20).replaceAll('/', '_')
                     if (branch != 'main') {
-                        revision += "-${branch}"
+                        revision += "-${branch}${username}"
                     }
                     sh "echo 'Building revision: ${revision}'"
                 }
