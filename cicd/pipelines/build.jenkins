@@ -78,8 +78,9 @@ spec:
             }
             steps {
                 container('docker') {
-                withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')])
+
                     script {
+                        withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')])
                         sh """
                         echo $username $password && docker login -u $username" -p $password
                         """
