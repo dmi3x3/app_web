@@ -3,8 +3,8 @@
 def branch
 def revision
 def registryIp
-
-
+def username = build.getEnvironment(listener).get('username')
+def password = build.getEnvironment(listener).get('password')
 
 pipeline {
 
@@ -47,9 +47,6 @@ spec:
         timestamps()
         skipDefaultCheckout true
     }
-    environment {
-        $USERNAME = credentials('$username')
-    }
     stages {
         stage ('checkout') {
             steps {
@@ -69,7 +66,7 @@ spec:
             steps {
                 container('docker') {
                     script {
-                        sh "docker build . -t dmi3x3/app_web:${revision} --build-arg REVISION=${revision}-{USERNAME}"
+                        sh "docker build . -t dmi3x3/app_web:${revision} --build-arg REVISION=${revision}"
                     }
                 }
             }
@@ -87,7 +84,7 @@ spec:
                     script {
                         //withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')]) {
                         sh """
-                        echo ${USERNAME} ${PASSWORD} && docker login -u ${USERNAME} -p ${PASSWORD} && docker push dmi3x3/app_web:${revision}
+                        echo ${username} ${password} && docker login -u ${username} -p ${password} && docker push dmi3x3/app_web:${revision}
                         """
                         //}
                     }
