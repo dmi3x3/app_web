@@ -55,7 +55,7 @@ spec:
                     revision = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
                     branch = repo.GIT_BRANCH.take(20).replaceAll('/', '_')
                     if (branch != 'main') {
-                        revision += "-${branch}${username}"
+                        revision += "-${branch}"
                     }
                     sh "echo 'Building revision: ${revision}'"
                 }
@@ -66,7 +66,7 @@ spec:
             steps {
                 container('docker') {
                     script {
-                        sh "docker build . -t dmi3x3/app_web:${revision} --build-arg REVISION=${revision}"
+                        sh "docker build . -t dmi3x3/app_web:${revision} --build-arg REVISION=${revision}-{USERNAME}"
                     }
                 }
             }
