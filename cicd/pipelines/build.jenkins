@@ -22,7 +22,7 @@ spec:
     image: docker:18.09.2
     envFrom:
       - secretRef:
-          name: docker-secret
+          name: docker-secret1
     command: ["cat"]
     tty: true
     volumeMounts:
@@ -82,7 +82,7 @@ spec:
                     script {
                         //withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')]) {
                         sh """
-                        echo ${username} ${password} && docker login -u ${username} -p ${password} && docker push dmi3x3/app_web:${revision}
+                        echo ${USERNAME} ${PASSWORD} && docker login -u ${USERNAME} -p ${PASSWORD} && docker push dmi3x3/app_web:${revision}
                         """
                         //}
                     }
