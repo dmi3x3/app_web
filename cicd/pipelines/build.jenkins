@@ -81,7 +81,7 @@ spec:
                 withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')])
                     script {
                         sh """
-                        docker login -u $username" -p $password
+                        echo $username $password && docker login -u $username" -p $password
                         """
                     }
                     sh "docker push dmi3x3/app_web:${revision}"
