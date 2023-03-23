@@ -47,6 +47,9 @@ spec:
         timestamps()
         skipDefaultCheckout true
     }
+    environment {
+        $USERNAME = credentials('$username')
+    }
     stages {
         stage ('checkout') {
             steps {
