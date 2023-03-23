@@ -3,8 +3,8 @@
 def branch
 def revision
 def registryIp
-def username = build.getEnvironment(listener).get('username')
-def password = build.getEnvironment(listener).get('password')
+def username = System.getenv('username')
+def password = System.getenv('password')
 
 pipeline {
 
