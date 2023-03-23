@@ -3,8 +3,8 @@
 def branch
 def revision
 def registryIp
-def username = System.getenv('username')
-def password = System.getenv('password')
+//def username = System.getenv('username')
+//def password = System.getenv('password')
 
 pipeline {
 
@@ -84,7 +84,7 @@ spec:
                     script {
                         //withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')]) {
                         sh """
-                        echo ${username} ${password} && docker login -u ${username} -p ${password} && docker push dmi3x3/app_web:${revision}
+                        echo ${env.username} ${env.password} && docker login -u ${env.username} -p ${env.password} && docker push dmi3x3/app_web:${revision}
                         """
                         //}
                     }
