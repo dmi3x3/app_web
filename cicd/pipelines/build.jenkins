@@ -81,7 +81,6 @@ spec:
 
                     script {
                         //withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')]) {
-                        echo env
                         sh """
                         echo ${env.username} ${env.password} && docker login -u ${env.username} -p ${env.password} && docker push dmi3x3/app_web:${revision}
                         """
