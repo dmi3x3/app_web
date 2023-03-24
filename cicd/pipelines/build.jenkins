@@ -88,8 +88,8 @@ spec:
                           //             usrnm = sh (returnStdout: true, script: 'echo username').trim()
                         //}
                         sh """ printenv """
-                        //def host= sh(returnStdout: true, script: 'echo ${DOCKER_USR}').trim()
-                        //println("Hostname : ${host}")
+                        def host= sh(returnStdout: true, script: 'echo ${DOCKER_USR}').trim()
+                        println("Hostname : ${host}")
                         //sh """
                         //echo usrnm: ${env.DOCKER_USR}
                         //&& docker login -u ${env.username} -p ${env.password} && docker push dmi3x3/app_web:${revision}
