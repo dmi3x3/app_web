@@ -83,19 +83,15 @@ spec:
                 container('docker') {
 
                     script {
-                        //withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')]) {
-                        //environment {
-                          //             usrnm = sh (returnStdout: true, script: 'echo username').trim()
-                        //}
-                        sh """ printenv """
+                        //sh """ printenv """
                         def DOCKER_U= sh(returnStdout: true, script: 'echo ${DOCKER_USR}').trim()
                         def DOCKER_P= sh(returnStdout: true, script: 'echo ${DOCKER_PASS}').trim()
-                        //println("Hostname : ${host}")
+                        maskPasswords(varMaskRegexes: [[regex: '-u.*'], [regex: '-p.*']]) {
 
-                        sh """
-                        echo usrnm: ${DOCKER_U} ${DOCKER_P} && docker login -u ${DOCKER_U} -p ${DOCKER_P} && docker push dmi3x3/app_web:${revision}
-                        """
-                        //}
+                            sh """
+                            echo usrnm: ${DOCKER_U} ${DOCKER_P} && docker login -u ${DOCKER_U} -p ${DOCKER_P} && docker push dmi3x3/app_web:${revision}
+                            """
+                        }
                     }
                 }
             }
