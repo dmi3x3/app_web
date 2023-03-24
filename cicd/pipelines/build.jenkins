@@ -26,7 +26,7 @@ spec:
     envFrom:
       - secretRef:
           name: docker-secret
-    command: ["echo ${env.username}", " && cat"]
+    command: ["echo ${env.username}", "cat"]
     tty: true
     volumeMounts:
     - name: docker-sock
