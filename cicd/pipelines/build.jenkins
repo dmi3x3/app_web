@@ -80,11 +80,11 @@ spec:
                 container('docker') {
 
                     script {
-                        //withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')]) {
+                        withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')]) {
                         sh """
-                        echo ${env.username} ${env.password} && docker login -u ${env.username} -p ${env.password} && docker push dmi3x3/app_web:${revision}
+                        echo ${username} ${password} && docker login -u ${env.username} -p ${env.password} && docker push dmi3x3/app_web:${revision}
                         """
-                        //}
+                        }
                     }
                 }
             }
