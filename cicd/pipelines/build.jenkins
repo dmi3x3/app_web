@@ -81,9 +81,11 @@ spec:
 
                     script {
                         //withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')]) {
-                        def usernm = sh "echo ${username}"
+                        environment {
+                                       usernm = sh (returnStdout: true, script: 'echo username').trim()
+                        }
                         sh """
-                        echo usernm: ${usernm} ${username} ${password} && docker login -u ${env.username} -p ${env.password} && docker push dmi3x3/app_web:${revision}
+                        echo usernm: ${usernm} && docker login -u ${env.username} -p ${env.password} && docker push dmi3x3/app_web:${revision}
                         """
                         //}
                     }
