@@ -23,9 +23,6 @@ spec:
   containers:
   - name: docker
     image: docker:18.09.2
-    envFrom:
-      - secretRef:
-          name: docker-secret
     command: ["cat"]
     tty: true
     volumeMounts:
@@ -84,11 +81,12 @@ spec:
 
                     script {
                         //withCredentials([usernamePassword(credentialsId: 'docker-secret', usernameVariable: 'username', passwordVariable: 'password')]) {
-                        environment {
-                                       usrnm = sh (returnStdout: true, script: 'echo username').trim()
-                        }
+                        //environment {
+                          //             usrnm = sh (returnStdout: true, script: 'echo username').trim()
+                        //}
                         sh """
-                        echo usrnm: ${env.usrnm} && docker login -u ${env.username} -p ${env.password} && docker push dmi3x3/app_web:${revision}
+                        echo usrnm: ${env.DOCKER_USR}
+                        //&& docker login -u ${env.username} -p ${env.password} && docker push dmi3x3/app_web:${revision}
                         """
                         //}
                     }
