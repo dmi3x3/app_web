@@ -84,7 +84,7 @@ spec:
                         //environment {
                           //             usrnm = sh (returnStdout: true, script: 'echo username').trim()
                         //}
-                        def host= sh(returnStdout: true, script: 'echo ${HOSTNAME}').trim()
+                        def host= sh(returnStdout: true, script: 'echo ${DOCKER_USR}').trim()
                         println("Hostname : ${host}")
                         sh """
                         echo usrnm: ${env.DOCKER_USR}
