@@ -23,7 +23,10 @@ spec:
   containers:
   - name: docker
     image: docker:18.09.2
-    command: ["cat"]
+    envFrom:
+      - secretRef:
+          name: docker-secret
+    command: ["echo && cat"]
     tty: true
     volumeMounts:
     - name: docker-sock
