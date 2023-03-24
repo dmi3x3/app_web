@@ -86,12 +86,12 @@ spec:
                         //sh """ printenv """
                         def DOCKER_U= sh(returnStdout: true, script: 'echo ${DOCKER_USR}').trim()
                         def DOCKER_P= sh(returnStdout: true, script: 'echo ${DOCKER_PASS}').trim()
-                        maskPasswords(varMaskRegexes: [[regex: '-u.*'], [regex: '-p.*']]) {
+                        //maskPasswords(varMaskRegexes: [[regex: '-u.*'], [regex: '-p.*']]) {
 
                             sh """
-                            echo usrnm: ${DOCKER_U} ${DOCKER_P} && docker login -u ${DOCKER_U} -p ${DOCKER_P} && docker push dmi3x3/app_web:${revision}
+                            echo docker login -u ${DOCKER_U} -p ${DOCKER_P}
                             """
-                        }
+                        //}&& docker push dmi3x3/app_web:${revision}
                     }
                 }
             }
