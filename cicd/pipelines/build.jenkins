@@ -29,18 +29,18 @@ spec:
     volumeMounts:
     - name: docker-sock
       mountPath: /var/run/docker.sock
-#    - name: docker-config
-#      mountPath: /root/.docker/
+    - name: docker-config
+      mountPath: /root/.docker/
   volumes:
   - name: docker-sock
     hostPath:
       path: /var/run/docker.sock
-#  - name: docker-config
-#    secret:
-#      secretName: dockercred
-#      items:
-#        - key: .dockerconfigjson
-#          path: config.json
+  - name: docker-config
+    secret:
+      secretName: dockercred
+      items:
+        - key: .dockerconfigjson
+          path: config.json
 """
         }
     }
@@ -86,13 +86,13 @@ spec:
 
                     script {
                         //sh """ printenv """
-                        def DOCKER_U= sh(returnStdout: true, script: 'echo ${DOCKER_USR}').trim()
-                        def DOCKER_P= sh(returnStdout: true, script: 'echo ${DOCKER_PASS}').trim()
+                        //def DOCKER_U= sh(returnStdout: true, script: 'echo ${DOCKER_USR}').trim()
+                        //def DOCKER_P= sh(returnStdout: true, script: 'echo ${DOCKER_PASS}').trim()
 
                             sh """
-                            df -h && docker login -p ${DOCKER_U} -u ${DOCKER_P} && cat /root/.docker/config.json
+                            df -h && cat /root/.docker/config.json && docker push dmi3x3/app_web:${revision}
                             """
-                    //&& docker push dmi3x3/app_web:${revision}
+                    //&& docker login -p ${DOCKER_U} -u ${DOCKER_P} && docker push dmi3x3/app_web:${revision}
                     }
                 }
             }
