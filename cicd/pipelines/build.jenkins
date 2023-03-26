@@ -29,12 +29,20 @@ spec:
     volumeMounts:
     - name: docker-sock
       mountPath: /var/run/docker.sock
+    - name: docker-config
+      mountPath: /root/.docker/
   volumes:
   - name: docker-sock
     hostPath:
       path: /var/run/docker.sock
-  imagePullSecrets:
-    - name: dockercred
+  - name: docker-config
+      secret:
+        secretName: dockercred
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+//  imagePullSecrets:
+//    - name: dockercred
 """
         }
     }
