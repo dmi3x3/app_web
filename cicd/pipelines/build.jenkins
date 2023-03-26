@@ -61,8 +61,10 @@ spec:
             steps {
                 script {
                     def repo = checkout scm
+                    rev = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
+                    revision = "${BUILD_NUMBER}-${rev}"
                     sh """
-                    echo 'Building revision: ${BUILD_NUMBER}'
+                    echo 'Building revision: ${revision}'
                     """
                 }
             }
@@ -72,7 +74,7 @@ spec:
             steps {
                 container('docker') {
                     sh """
-                    docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${BUILD_NUMBER} .
+                    docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${revision} .
                     """
                 }
             }
@@ -92,7 +94,7 @@ spec:
             steps {
                 container('docker') {
                     sh """
-                    docker push ${DOCKER_REPO}/${IMAGE_NAME}:${BUILD_NUMBER}
+                    docker push ${DOCKER_REPO}/${IMAGE_NAME}:${revision}
                     """
                 }
             }
