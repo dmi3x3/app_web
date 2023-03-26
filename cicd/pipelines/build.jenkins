@@ -36,11 +36,11 @@ spec:
     hostPath:
       path: /var/run/docker.sock
   - name: docker-config
-      secret:
-        secretName: dockercred
-        items:
-          - key: .dockerconfigjson
-            path: config.json
+    secret:
+      secretName: dockercred
+      items:
+        - key: .dockerconfigjson
+          path: config.json
 //  imagePullSecrets:
 //    - name: dockercred
 """
