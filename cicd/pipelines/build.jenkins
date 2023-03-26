@@ -3,8 +3,6 @@
 def branch
 def revision
 def registryIp
-//def username = System.getenv('username')
-//def password = System.getenv('password')
 
 
 pipeline {
@@ -35,13 +33,11 @@ spec:
   - name: docker-sock
     hostPath:
       path: /var/run/docker.sock
+  imagePullSecrets:
+    - name: dockercred
 """
         }
     }
-//    options {
-//        skipDefaultCheckout true
-//
-//    }
     triggers { pollSCM('* * * * *') }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
@@ -84,11 +80,11 @@ spec:
 
                     script {
                         //sh """ printenv """
-                        def DOCKER_U= sh(returnStdout: true, script: 'echo ${DOCKER_USR}').trim()
-                        def DOCKER_P= sh(returnStdout: true, script: 'echo ${DOCKER_PASS}').trim()
+                        //def DOCKER_U= sh(returnStdout: true, script: 'echo ${DOCKER_USR}').trim()
+                        //def DOCKER_P= sh(returnStdout: true, script: 'echo ${DOCKER_PASS}').trim()
 
                             sh """
-                            docker login -u ${DOCKER_U} -p ${DOCKER_P}
+                            df -h && docker login
                             """
                     //&& docker push dmi3x3/app_web:${revision}
                     }
