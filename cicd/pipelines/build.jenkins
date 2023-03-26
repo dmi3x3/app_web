@@ -50,51 +50,43 @@ spec:
         timestamps()
         skipDefaultCheckout true
     }
+    environment {
+    //BUILD_TAG_NAME = '${BUILD_NUMBER}'
+    //IMAGE_BASE = '${DOCKER_REPO}/${IMAGE_NAME}'
+    DOCKER_REPO = 'dmi3x3'
+    IMAGE_NAME = 'app_web'
+    }
     stages {
-        stage ('checkout') {
+        stage("Build Docker Image") {
+            when { triggeredBy 'SCMTrigger' }
             steps {
-                script {
-                    def repo = checkout scm
-                    revision = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
-                    branch = repo.GIT_BRANCH.take(20).replaceAll('/', '_')
-                    if (branch != 'main') {
-                        revision += "-${branch}"
-                    }
-                    sh "echo 'Building revision: ${revision}'"
-                }
-            }
-
-        }
-        stage ('build artifact') {
-            steps {
-                container('docker') {
-                    script {
-                        sh "docker build . -t dmi3x3/app_web:${revision} --build-arg REVISION=${revision}"
-                    }
-                }
+                    sh """
+                    docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${BUILD_NUMBER} .
+                    """
             }
         }
-        stage ('publish artifact') {
-
-            when {
-                expression {
-                    branch != 'main'
-                }
-            }
+        stage("BUILD Docker Image with Tag") {
+            when { buildingTag() }
             steps {
-                container('docker') {
-
-                    script {
-                        //sh """ printenv """
-                        //def DOCKER_U= sh(returnStdout: true, script: 'echo ${DOCKER_USR}').trim()
-                        //def DOCKER_P= sh(returnStdout: true, script: 'echo ${DOCKER_PASS}').trim()
-
-                            sh """
-                            df -h && cat /root/.docker/config.json && docker push dmi3x3/app_web:${revision}
-                            """
-                    //&& docker login -p ${DOCKER_U} -u ${DOCKER_P} && docker push dmi3x3/app_web:${revision}
-                    }
-                }
+                	sh """
+                    docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:$TAG_NAME .
+                    """
+            }
+        }
+        stage("Docker Push") {
+            when { triggeredBy 'SCMTrigger' }
+            steps {
+                sh """
+                docker push ${DOCKER_REPO}/${IMAGE_NAME}:${BUILD_NUMBER}
+                """
+            }
+        }
+        stage("Docker Push with Tag") {
+            when { buildingTag() }
+            steps {
+                	sh """
+                    docker push ${DOCKER_REPO}/${IMAGE_NAME}:$TAG_NAME
+                    """
             }
         }
     }
