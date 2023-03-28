@@ -62,13 +62,13 @@ spec:
             steps {
                 script {
                     //def repo =
-                    def TAG_NAME = sh(returnStdout: true, script: "git --no-pager tag --points-at HEAD").trim()
+                    //def TAG_NAME = sh(returnStdout: true, script: "git --no-pager tag --points-at HEAD").trim()
                     checkout scm
                     rev = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
                     revision = "${BUILD_NUMBER}-${rev}"
                     rev_build = buildingTag()
                     sh """
-                    echo 'Building revision: ${revision} build_tag:: ${TAG_NAME}'
+                    echo 'Building revision: ${revision} build_tag:: ${env.TAG_NAME}'
                     """
                 }
             }
