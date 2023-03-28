@@ -118,7 +118,7 @@ def boolean isVersionTag() {
 
     def String tag = sh(returnStdout: true, script: "git describe --tags").trim()
 
-    if (tag == null) {
+    if (${tag} == null) {
         return false
     }
 
