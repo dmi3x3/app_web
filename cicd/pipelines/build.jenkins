@@ -82,9 +82,7 @@ spec:
             }
         }
         stage("BUILD Docker Image with Tag") {
-            //when { buildingTag() }
-            read_cur = readCurrentTag()
-            when { not { read_cur null } }
+            when { buildingTag() }
             steps {
                 container('docker') {
                 	sh """
@@ -104,9 +102,7 @@ spec:
             }
         }
         stage("Docker Push with Tag") {
-            //when { buildingTag() }
-            read_cur = readCurrentTag()
-            when { not { read_cur null } }
+            when { buildingTag() }
             steps {
                 container('docker') {
                 	sh """
@@ -123,8 +119,10 @@ def boolean isVersionTag(String tag) {
 
     script {
         if (tag == null) {
+            echo 'tag null'
             return false
         } else {
+        echo 'tag not null'
         return true
         }
     }
