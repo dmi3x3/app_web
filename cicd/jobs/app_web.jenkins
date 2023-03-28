@@ -10,7 +10,7 @@ pipelineJob('example-job') {
                     remote {
                         url('https://github.com/dmi3x3/app_web.git')
                     }
-                    branches('*/main')
+                    branches('*')
                 }
             }
             scriptPath('cicd/pipelines/build.jenkins')
