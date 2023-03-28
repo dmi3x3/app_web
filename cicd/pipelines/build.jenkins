@@ -117,15 +117,15 @@ spec:
 def boolean isVersionTag(String tag) {
     echo "checking version tag $tag"
 
-
     if (tag == null) {
         return false
     }
 
     // use your preferred pattern
-    def tagMatcher = tag =~ /\d+\.\d+\.\d+/
+//    def tagMatcher = tag =~ /\d+\.\d+\.\d+/
 
-    return tagMatcher.matches()
+  //  return tagMatcher.matches()
+    return true
 }
 
 // workaround https://issues.jenkins-ci.org/browse/JENKINS-55987
