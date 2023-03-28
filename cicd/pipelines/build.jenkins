@@ -52,7 +52,7 @@ spec:
     }
     environment {
     //BUILD_TAG_NAME = '${BUILD_NUMBER}'
-    //TAG_NAME = sh(returnStdout: true, script: "git --no-pager tag --points-at HEAD").trim()
+    TAG_NAME = sh(returnStdout: true, script: "git --no-pager tag --points-at HEAD").trim()
     //IMAGE_BASE = '${DOCKER_REPO}/${IMAGE_NAME}'
     DOCKER_REPO = 'dmi3x3'
     IMAGE_NAME = 'app_web'
