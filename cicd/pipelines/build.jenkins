@@ -68,7 +68,7 @@ spec:
                     revision = "${BUILD_NUMBER}-${rev}"
                     //rev_build = buildingTag()
                     sh """
-                    echo 'Building revision: ${revision} build_tag: ${tag} gt: ${gitTagDiscovery}'
+                    echo 'Building revision: ${revision} build_tag: gt: ${gitTagDiscovery}'
                     """
                 }
             }
