@@ -127,10 +127,6 @@ def boolean isVersionTag(String tag) {
         return true
         }
     }
-    // use your preferred pattern
-//    def tagMatcher = tag =~ /\d+\.\d+\.\d+/
-//    return tagMatcher.matches()
-
 }
 
 // workaround https://issues.jenkins-ci.org/browse/JENKINS-55987
