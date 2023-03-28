@@ -123,7 +123,6 @@ def boolean isVersionTag(String tag) {
 
     // use your preferred pattern
 //    def tagMatcher = tag =~ /\d+\.\d+\.\d+/
-
   //  return tagMatcher.matches()
     return true
 }
