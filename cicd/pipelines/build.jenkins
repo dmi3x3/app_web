@@ -119,7 +119,7 @@ def boolean isVersionTag(String tag) {
 
     tag_bool = true
 
-    if (tag == null) {
+    if ($tag == null) {
         echo "is null"
         tag_bool = false
         return tag_bool
