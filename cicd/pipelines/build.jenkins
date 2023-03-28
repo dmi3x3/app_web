@@ -83,7 +83,8 @@ spec:
         }
         stage("BUILD Docker Image with Tag") {
             //when { buildingTag() }
-            when { not { readCurrentTag() null } }
+            read_cur = readCurrentTag()
+            when { not { read_cur null } }
             steps {
                 container('docker') {
                 	sh """
@@ -104,7 +105,8 @@ spec:
         }
         stage("Docker Push with Tag") {
             //when { buildingTag() }
-            when { not { readCurrentTag() null } }
+            read_cur = readCurrentTag()
+            when { not { read_cur null } }
             steps {
                 container('docker') {
                 	sh """
