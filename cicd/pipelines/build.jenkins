@@ -4,6 +4,25 @@ def branch
 def revision
 def registryIp
 
+def boolean isVersionTag(String tag) {
+    echo "checking version tag $tag"
+
+    if (tag == null) {
+        return false
+    }
+
+    // use your preferred pattern
+    def tagMatcher = tag =~ /\d+\.\d+\.\d+/
+
+    return tagMatcher.matches()
+}
+
+// workaround https://issues.jenkins-ci.org/browse/JENKINS-55987
+def String readCurrentTag() {
+
+    return sh(returnStdout: true, script: "git describe --tags").trim()
+}
+
 
 pipeline {
 
@@ -65,12 +84,11 @@ spec:
                     //def TAG_NAME = sh(returnStdout: true, script: "git --no-pager tag --points-at HEAD").trim()
                     checkout scm
                     rev = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
-                    def TAG_NAME = sh(script: 'git describe --tags | cat', returnStdout: true).trim()
-                    rev1 = sh(script: 'git describe --tags | cat', returnStdout: true).trim()
+                    rev1 = isVersionTag()
                     revision = "${BUILD_NUMBER}-${rev}"
                     rev_build = buildingTag()
                     sh """
-                    echo 'Building revision: ${revision} build_tag: ${env.TAG_NAME} rev1: ${rev1}'
+                    echo 'Building revision: ${revision} build_tag: ${rev1}'
                     """
                 }
             }
