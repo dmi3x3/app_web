@@ -82,7 +82,7 @@ spec:
             }
         }
         stage("BUILD Docker Image with Tag") {
-            when { isVersionTag(readCurrentTag()) }
+            when { expression { isVersionTag(readCurrentTag()) }}
             steps {
                 container('docker') {
                 	sh """
@@ -102,7 +102,7 @@ spec:
             }
         }
         stage("Docker Push with Tag") {
-            when { isVersionTag(readCurrentTag()) }
+            when { expression { isVersionTag(readCurrentTag()) }}
             steps {
                 container('docker') {
                 	sh """
