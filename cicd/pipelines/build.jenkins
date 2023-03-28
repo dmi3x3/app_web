@@ -81,7 +81,7 @@ spec:
             }
         }
         stage("BUILD Docker Image with Tag") {
-            when { isVersionTag() }
+            when { buildingTag() }
             steps {
                 container('docker') {
                 	sh """
