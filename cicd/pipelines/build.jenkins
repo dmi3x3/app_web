@@ -63,8 +63,9 @@ spec:
                     def repo = checkout scm
                     rev = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
                     revision = "${BUILD_NUMBER}-${rev}"
+                    rev_build = buildingTag()
                     sh """
-                    echo 'Building revision: ${revision}'
+                    echo 'Building revision: ${revision} ${rev_build}'
                     """
                 }
             }
