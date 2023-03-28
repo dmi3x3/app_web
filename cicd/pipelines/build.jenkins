@@ -53,24 +53,6 @@ spec:
     IMAGE_NAME = 'app_web'
     }
 
-    def boolean isVersionTag(String tag) {
-        echo "checking version tag $tag"
-
-        if (tag == null) {
-            return false
-        }
-
-        // use your preferred pattern
-        def tagMatcher = tag =~ /\d+\.\d+\.\d+/
-
-        return tagMatcher.matches()
-    }
-
-    // workaround https://issues.jenkins-ci.org/browse/JENKINS-55987
-    def String readCurrentTag() {
-
-        return sh(returnStdout: true, script: "git describe --tags").trim()
-    }
     stages {
         stage ('checkout') {
             steps {
@@ -129,4 +111,23 @@ spec:
             }
         }
     }
+}
+
+def boolean isVersionTag(String tag) {
+    echo "checking version tag $tag"
+
+    if (tag == null) {
+        return false
+    }
+
+    // use your preferred pattern
+    def tagMatcher = tag =~ /\d+\.\d+\.\d+/
+
+    return tagMatcher.matches()
+}
+
+// workaround https://issues.jenkins-ci.org/browse/JENKINS-55987
+def String readCurrentTag() {
+
+    return sh(returnStdout: true, script: "git describe --tags").trim()
 }
