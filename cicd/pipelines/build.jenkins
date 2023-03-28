@@ -60,7 +60,8 @@ spec:
         stage ('checkout') {
             steps {
                 script {
-                    def repo = checkout scm
+                    //def repo =
+                    checkout scm
                     rev = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
                     revision = "${BUILD_NUMBER}-${rev}"
                     rev_build = buildingTag()
