@@ -65,7 +65,7 @@ spec:
                     //def TAG_NAME = sh(returnStdout: true, script: "git --no-pager tag --points-at HEAD").trim()
                     checkout scm
                     rev = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
-                    TAG_NAME = sh(script: 'git describe --tags | cat', returnStdout: true).trim()
+                    def TAG_NAME = sh(script: 'git describe --tags | cat', returnStdout: true).trim()
                     rev1 = sh(script: 'git describe --tags | cat', returnStdout: true).trim()
                     revision = "${BUILD_NUMBER}-${rev}"
                     rev_build = buildingTag()
