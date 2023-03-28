@@ -113,8 +113,10 @@ spec:
     }
 }
 
-def boolean isVersionTag(String tag) {
+def boolean isVersionTag() {
     echo "checking version tag $tag"
+
+    def String tag = sh(returnStdout: true, script: "git describe --tags").trim()
 
     if (tag == null) {
         return false
