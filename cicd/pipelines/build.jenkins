@@ -117,7 +117,7 @@ spec:
 def boolean isVersionTag(String tag) {
     echo "checking version tag $tag"
 
-    script {
+   // script {
 
         if (tag.length() == 0) {
             echo 'tag null'
@@ -126,7 +126,7 @@ def boolean isVersionTag(String tag) {
         echo 'tag not null'
         return true
         }
-    }
+   // }
 }
 
 // workaround https://issues.jenkins-ci.org/browse/JENKINS-55987
