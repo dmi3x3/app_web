@@ -118,7 +118,7 @@ def boolean isVersionTag(String tag) {
     echo "checking version tag $tag"
 
     script {
-        if ($tag == null) {
+        if (tag == null) {
             return false
         } else {
         return true
