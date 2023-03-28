@@ -62,11 +62,11 @@ spec:
                     checkout scm
                     rev = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
                     rev1 = isVersionTag(readCurrentTag())
-                    rev2 = readCurrentTag()
+                    TAG_NAME = readCurrentTag()
                     revision = "${BUILD_NUMBER}-${rev}"
                     //rev_build = buildingTag()
                     sh """
-                    echo 'Building revision: ${revision} build_tag: ${rev2} gt: ${rev1}'
+                    echo 'Building revision: ${revision} build_tag: ${TAG_NAME} gt: ${rev1}'
                     """
                 }
             }
