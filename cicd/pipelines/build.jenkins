@@ -134,5 +134,5 @@ def boolean isVersionTag(String tag) {
 // workaround https://issues.jenkins-ci.org/browse/JENKINS-55987
 def String readCurrentTag() {
 
-    return sh(returnStdout: true, script: "git describe --tags").trim()
+    return sh(returnStdout: true, script: "git --no-pager tag --points-at HEAD").trim()
 }
