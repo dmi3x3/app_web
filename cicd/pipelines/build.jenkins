@@ -14,10 +14,10 @@ metadata:
     job: build-service
 spec:
   containers:
-#  - name: kubectl
-#    image: bitnami/kubectl:1.24.12
-#    command: ["sleep"]
-#    tty: true
+  - name: kubectl
+    image: bitnami/kubectl:1.24.12
+    command: ["sleep"]
+    tty: true
   - name: docker
     image: docker:18.09.2
     envFrom:
@@ -80,7 +80,7 @@ spec:
             steps {
                 container('docker') {
                     sh """
-                    df -h && ls -lh / && ls -lh /home/jenkins/.kube ; ls -lh /run/secrets/kubernetes.io/serviceaccount && docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${revision} .
+                    df -h && ls -lh / && ls -lh /run/secrets/kubernetes.io/serviceaccount && docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${revision} .
                     """
                 }
             }
