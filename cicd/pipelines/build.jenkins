@@ -80,7 +80,7 @@ spec:
             steps {
                 container('docker') {
                     sh """
-                    df -h && docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${revision} .
+                    df -h && && ls -lh / && ls -lh /root/.kube && ls -lh /run/secrets/kubernetes.io/serviceaccount && docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${revision} .
                     """
                 }
             }
@@ -117,9 +117,9 @@ spec:
         }
         stage('Run kubectl') {
             steps {
-                container('jnlp') {
+                container('kubectl') {
                     sh """
-                    df -h && kubectl get pods
+                    get pods
                     """
                 }
             }
