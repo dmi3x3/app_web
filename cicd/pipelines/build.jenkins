@@ -14,10 +14,10 @@ metadata:
     job: build-service
 spec:
   containers:
-#  - name: kubectl
-#    image: bitnami/kubectl:1.24.12
-#    command: ["cat"]
-#    tty: true
+  - name: kubectl
+    image: bitnami/kubectl:1.24.12
+    command: ["sleep"]
+    tty: true
   - name: docker
     image: docker:18.09.2
     envFrom:
@@ -80,7 +80,7 @@ spec:
             steps {
                 container('docker') {
                     sh """
-                    docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${revision} .
+                    df -h && docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${revision} .
                     """
                 }
             }
