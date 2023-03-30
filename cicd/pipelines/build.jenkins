@@ -117,13 +117,13 @@ spec:
         }
         stage('Run kubectl') {
             steps {
-                container('docker') {
-                    withKubeConfig([namespace: "this-other-namespace"]) {
+                //container('docker') {
+                    withKubeConfig([namespace: "default"]) {
                         sh """
                         kubectl get pods
                         """
                     }
-                }
+                //}
             }
         }
     }
