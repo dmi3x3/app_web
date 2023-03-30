@@ -14,10 +14,10 @@ metadata:
     job: build-service
 spec:
   containers:
-  - name: kubectl
-    image: bitnami/kubectl:1.24.12
-    command: ["sleep"]
-    tty: true
+#  - name: kubectl
+#    image: bitnami/kubectl:1.24.12
+#    command: ["sleep"]
+#    tty: true
   - name: docker
     image: docker:18.09.2
     envFrom:
@@ -119,7 +119,7 @@ spec:
             steps {
                 container('jnlp') {
                     sh """
-                    kubectl get pods
+                    df -h && kubectl get pods
                     """
                 }
             }
