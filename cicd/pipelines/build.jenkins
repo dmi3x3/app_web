@@ -14,10 +14,10 @@ metadata:
     job: build-service
 spec:
   containers:
-  - name: kubectl
-    image: bitnami/kubectl:1.24.12
+#  - name: kubectl
+#    image: bitnami/kubectl:1.24.12
 #    command: ["cat"]
-    tty: true
+#    tty: true
   - name: docker
     image: docker:18.09.2
     envFrom:
@@ -117,7 +117,7 @@ spec:
         }
         stage('Run kubectl') {
             steps {
-                container('kubectl') {
+                container('jnlp') {
                     sh """
                     kubectl get pods
                     """
