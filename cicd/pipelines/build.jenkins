@@ -17,7 +17,7 @@ spec:
   - name: kubectl
     image: bitnami/kubectl:1.24.12
     command:
-    - "--request-timeout='0' top node"
+    - "--request-timeout='1m' top node"
 #    tty: true
   - name: docker
     image: docker:18.09.2
