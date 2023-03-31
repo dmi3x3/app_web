@@ -117,13 +117,13 @@ spec:
         }
         stage('Run kubectl') {
             steps {
-                container('kubectl') {
+                //container('kubectl') {
                     withKubeConfig([namespace: "default"]) {
                         sh """
-                        kubectl get pods
+                        curl https://yandex.ru
                         """
                     }
-                }
+                //}
             }
         }
     }
