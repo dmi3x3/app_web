@@ -17,8 +17,8 @@ spec:
   - name: kubectl
     image: bitnami/kubectl:1.24.12
     command:
-    - "--request-timeout='1m' top node"
-#    tty:  true
+    - "cat"
+    tty:  true
   - name: docker
     image: docker:18.09.2
     envFrom:
@@ -81,7 +81,7 @@ spec:
             steps {
                 container('docker') {
                     sh """
-                    df -h && ls -lh / && ls -lh /run/secrets/kubernetes.io/serviceaccount && docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${revision} .
+                    docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${revision} .
                     """
                 }
             }
