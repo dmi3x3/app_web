@@ -121,7 +121,7 @@ spec:
                 container('kubectl') {
 
                         sh """
-                        get pods
+                        kubectl get pods
                         """
 
                 }
