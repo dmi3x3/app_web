@@ -17,8 +17,7 @@ spec:
   - name: kubectl
     image: bitnami/kubectl:1.24.12
     command:
-    - "top"
-    - "node"
+    - "top node"
 #    tty: true
   - name: docker
     image: docker:18.09.2
