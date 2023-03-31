@@ -14,10 +14,10 @@ metadata:
     job: build-service
 spec:
   containers:
-//  - name: kubectl
-//    image: bitnami/kubectl:1.24.12
-//    command: ["top", "node"]
-//    tty: true
+#  - name: kubectl
+#    image: bitnami/kubectl:1.24.12
+#    command: ["top", "node"]
+#    tty: true
   - name: docker
     image: docker:18.09.2
     envFrom:
@@ -117,13 +117,13 @@ spec:
         }
         stage('Run kubectl') {
             steps {
-                //container('kubectl') {
-                    withKubeConfig([namespace: "default"]) {
+                container('jnlp') {
+
                         sh """
-                        curl https://yandex.ru
+                        curl "https://yandex.ru"
                         """
-                    }
-                //}
+
+                }
             }
         }
     }
