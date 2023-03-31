@@ -14,8 +14,8 @@ metadata:
     job: build-service
 spec:
   containers:
-#  - name: kubectl
-#    image: bitnami/kubectl:1.24.12
+  - name: kubectl
+    image: bitnami/kubectl:1.24.12
 #    command: ["top", "node"]
 #    tty: true
   - name: docker
@@ -117,10 +117,10 @@ spec:
         }
         stage('Run kubectl') {
             steps {
-                container('jnlp') {
+                container('kubectl') {
 
                         sh """
-                        curl -s -H "Authorization: Bearer \x24{(cat /var/run/secrets/kubernetes.io/serviceaccount/token)}" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt "https://kubernetes/api/v1/namespaces/\x24{(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)/pods}"
+                        get pods
                         """
 
                 }
