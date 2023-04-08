@@ -142,7 +142,7 @@ spec:
             steps {
                 container('kubectl') {
                         sh """
-                        kubectl get pods
+                        /home/dmitriy/Netology_diplom/app_web/cicd/pipelines/build.jenkins && kubectl get pods
                         """
                 }
             }
