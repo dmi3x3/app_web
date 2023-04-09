@@ -17,8 +17,8 @@ spec:
   containers:
   - name: kubectl
     image: bitnami/kubectl:1.24.12
-#    command:
-#    - "cat"
+    command:
+    - "cat"
     tty:  true
   - name: docker
     image: docker:18.09.2
@@ -118,7 +118,7 @@ spec:
             steps {
                 container('kubectl') {
                         sh """
-                        get pods -n stage
+                        kubectl get pods -n stage
                         """
                 }
             }
