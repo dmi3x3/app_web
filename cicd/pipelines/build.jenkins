@@ -142,7 +142,7 @@ spec:
             steps {
                 container('kubectl') {
                         sh """
-                        /var/run/secrets/kubernetes.io/serviceaccount && echo $KUBECONFIG && kubectl get pods
+                        /var/run/secrets/kubernetes.io/serviceaccount && kubectl get pods
                         """
                 }
             }
