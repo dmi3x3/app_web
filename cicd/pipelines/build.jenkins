@@ -142,7 +142,7 @@ spec:
             steps {
                 container('kubectl') {
                         sh """
-                        /home/dmitriy/Netology_diplom/app_web/cicd/pipelines/build.jenkins && kubectl get pods
+                        /var/run/secrets/kubernetes.io/serviceaccount && echo $KUBECONFIG && kubectl get pods
                         """
                 }
             }
