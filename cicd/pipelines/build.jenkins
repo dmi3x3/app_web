@@ -18,16 +18,9 @@ spec:
     image: bitnami/kubectl:1.24.12
     command:
     - "cat"
-    volumeMounts:
-    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-      name: kube-api-access-wpb2b
-      readOnly: true
     tty:  true
   - name: docker
     image: docker:18.09.2
-    envFrom:
-      - secretRef:
-          name: docker-secret2
     command: ["cat"]
     tty: true
     volumeMounts:
@@ -45,24 +38,6 @@ spec:
       items:
         - key: .dockerconfigjson
           path: config.json
-  - name: kube-api-access-wpb2b
-    projected:
-      defaultMode: 420
-      sources:
-      - serviceAccountToken:
-          expirationSeconds: 3607
-          path: token
-      - configMap:
-          items:
-          - key: ca.crt
-            path: ca.crt
-          name: kube-root-ca.crt
-      - downwardAPI:
-          items:
-          - fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
-            path: namespace
 """
         }
     }
