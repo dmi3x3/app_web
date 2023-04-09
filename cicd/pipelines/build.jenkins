@@ -118,7 +118,7 @@ spec:
             steps {
                 container('kubectl') {
                         sh """
-                        kubectl get pods -n stage
+                        kubectl get po -n stage
                         """
                 }
             }
