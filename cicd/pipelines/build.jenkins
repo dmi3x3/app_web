@@ -13,7 +13,7 @@ metadata:
   labels:
     job: build-service
 spec:
-  serviceAccountName: kube-api-access-mfwxl
+  serviceAccountName: jenkins-operator-example
   containers:
   - name: kubectl
     image: bitnami/kubectl:1.24.12
@@ -118,7 +118,7 @@ spec:
             steps {
                 container('kubectl') {
                         sh """
-                        /var/run/secrets/kubernetes.io/serviceaccount && kubectl get pods
+                        kubectl get pods -n stage
                         """
                 }
             }
