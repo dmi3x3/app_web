@@ -1,0 +1,8 @@
+image_frontend:
+  repository: "dmi3x3/app_web"
+  tag: ""
+
+image:
+  tag: "latest"
+
+namespace: ""
