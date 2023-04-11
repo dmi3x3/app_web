@@ -121,7 +121,7 @@ spec:
                 container('helmctl') {
                         sh """
                         helm upgrade app-web-repo app-web-chart --set image_frontend.tag=$TAG_NAME --install -n stage
-                        kubectl get pods -n stage
+                        kubectl get po -n stage
                         """
                 }
             }
