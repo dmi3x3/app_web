@@ -39,7 +39,7 @@ spec:
     - name: "http"
       port: 80
       targetPort: http
-      nodePort: 30880
+      nodePort: 30080
   selector:
     app: app-web
     release: {{ .Release.Name }}
