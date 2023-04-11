@@ -15,7 +15,7 @@ metadata:
 spec:
   serviceAccountName: deploy-stage1
   containers:
-  - name: kubectl
+  - name: helmctl
     image: dmi3x3/helmctl:1.0.0
     command:
     - "cat"
@@ -109,15 +109,18 @@ spec:
             steps {
                 container('docker') {
                 	sh """
-                    docker push ${DOCKER_REPO}/${IMAGE_NAME}:$TAG_NAME
+                	docker push ${DOCKER_REPO}/${IMAGE_NAME}:$TAG_NAME
+                    docker tag ${DOCKER_REPO}/${IMAGE_NAME}:$TAG_NAME ${DOCKER_REPO}/${IMAGE_NAME}:latest
+                    docker push ${DOCKER_REPO}/${IMAGE_NAME}:latest
                     """
                 }
             }
         }
-        stage('Run kubectl') {
+        stage('Run helmctl') {
             steps {
-                container('kubectl') {
+                container('helmctl') {
                         sh """
+                        helm upgrade app-web-repo app-web-chart --set image_frontend.tag=$TAG_NAME --install -n stage
                         kubectl get pods -n stage
                         """
                 }
