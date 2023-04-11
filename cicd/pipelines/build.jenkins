@@ -16,7 +16,7 @@ spec:
   serviceAccountName: deploy-stage1
   containers:
   - name: kubectl
-    image: bitnami/kubectl:1.24.12
+    image: dmi3x3/helmctl:1.0.0
     command:
     - "cat"
     tty:  true
