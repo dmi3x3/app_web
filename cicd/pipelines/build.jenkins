@@ -82,59 +82,29 @@ spec:
                 }
             }
         }
-        stage("Build Docker by kaniko") {
+        stage("Build Docker Image by kaniko") {
         when {triggeredBy 'SCMTrigger'}
             steps {
                 container('kaniko') {
                     sh """
-                    /kaniko/executor --dockerfile Dockerfile --context `pwd`/ --verbosity debug --insecure --skip-tls-verify --destination ${DOCKER_REPO}/${IMAGE_NAME}:latest --destination ${DOCKER_REPO}/${IMAGE_NAME}:${revision}
+                    /kaniko/executor --dockerfile Dockerfile --context `pwd`/ --verbosity debug --insecure --skip-tls-verify --destination ${DOCKER_REPO}/${IMAGE_NAME}:${revision}
                      """
                 }
             }
         }
 
-        stage("Build Docker Image") {
-            when { triggeredBy 'SCMTrigger' }
-            steps {
-                container('docker') {
-                    sh """
-                    docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:${revision} .
-                    """
-                }
-            }
-        }
-        stage("BUILD Docker Image with Tag") {
+
+        stage("BUILD Docker Image by kaniko with Tag") {
             when { expression { isVersionTag(readCurrentTag()) }}
             steps {
-                container('docker') {
+                container('kaniko') {
                 	sh """
-                    docker build -t ${DOCKER_REPO}/${IMAGE_NAME}:$TAG_NAME .
+                    /kaniko/executor --dockerfile Dockerfile --context `pwd`/ --verbosity debug --insecure --skip-tls-verify --destination ${DOCKER_REPO}/${IMAGE_NAME}:$TAG_NAME --destination ${DOCKER_REPO}/${IMAGE_NAME}:latest
                     """
                 }
             }
         }
-        stage("Docker Push") {
-            when { triggeredBy 'SCMTrigger' }
-            steps {
-                container('docker') {
-                    sh """
-                    docker push ${DOCKER_REPO}/${IMAGE_NAME}:${revision}
-                    """
-                }
-            }
-        }
-        stage("Docker Push with Tag") {
-            when { expression { isVersionTag(readCurrentTag()) }}
-            steps {
-                container('docker') {
-                	sh """
-                	docker push ${DOCKER_REPO}/${IMAGE_NAME}:$TAG_NAME
-                    docker tag ${DOCKER_REPO}/${IMAGE_NAME}:$TAG_NAME ${DOCKER_REPO}/${IMAGE_NAME}:latest
-                    docker push ${DOCKER_REPO}/${IMAGE_NAME}:latest
-                    """
-                }
-            }
-        }
+
         stage('Run helmctl') {
             steps {
                 container('helmctl') {
