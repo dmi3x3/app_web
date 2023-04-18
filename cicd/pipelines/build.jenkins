@@ -15,6 +15,18 @@ metadata:
 spec:
   serviceAccountName: deploy-stage1
   containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    command:
+    - "cat"
+    tty: true
+    volumeMounts:
+    - name: docker-config
+      mountPath: /kaniko/.docker/
+    resourceRequestCpu: "400m"
+    resourceRequestMemory: "128Mi"
+    resourceLimitCpu: "1"
+    resourceLimitMemory: "1024Mi"
   - name: helmctl
     image: dmi3x3/helmctl:1.0.0
     command:
@@ -27,8 +39,8 @@ spec:
     volumeMounts:
     - name: docker-sock
       mountPath: /var/run/docker.sock
-#    - name: docker-config
-#      mountPath: /root/.docker/
+    - name: docker-config
+      mountPath: /root/.docker/
   volumes:
   - name: docker-sock
     hostPath:
@@ -74,6 +86,23 @@ spec:
                 }
             }
         }
+        stage("Build Docker by kanico") {
+        when {triggeredBy 'SCMTrigger'}
+            steps {
+                container('kaniko') {
+                    sh '''#!/busybox/sh -xe
+                    /kaniko/executor \
+                    --dockerfile Dockerfile \
+                    --context `pwd`/ \
+                    --verbosity debug \
+                    --insecure \
+                    --skip-tls-verify \
+                    --destination ${DOCKER_REPO}/${IMAGE_NAME}:${revision}
+                '''
+                }
+            }
+        }
+
         stage("Build Docker Image") {
             when { triggeredBy 'SCMTrigger' }
             steps {
