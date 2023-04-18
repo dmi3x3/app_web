@@ -86,11 +86,9 @@ spec:
         when {triggeredBy 'SCMTrigger'}
             steps {
                 container('kaniko') {
-                    sh '''#!/busybox/sh -xe
-                    /kaniko/executor \
-                    --dockerfile Dockerfile \
-                    --context `pwd`/ --verbosity debug --insecure --skip-tls-verify --destination "${DOCKER_REPO}/${IMAGE_NAME}:latest --destination ${DOCKER_REPO}/${IMAGE_NAME}:${revision}
-                '''
+                    sh """
+                    /kaniko/executor --dockerfile Dockerfile --context `pwd`/ --verbosity debug --insecure --skip-tls-verify --destination "${DOCKER_REPO}/${IMAGE_NAME}:latest --destination ${DOCKER_REPO}/${IMAGE_NAME}:${revision}
+                """
                 }
             }
         }
