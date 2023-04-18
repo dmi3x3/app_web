@@ -88,7 +88,7 @@ spec:
                 container('kaniko') {
                     sh """
                     /kaniko/executor --dockerfile Dockerfile --context `pwd`/ --verbosity debug --insecure --skip-tls-verify --destination "${DOCKER_REPO}/${IMAGE_NAME}:latest --destination ${DOCKER_REPO}/${IMAGE_NAME}:${revision}
-                """
+                     """
                 }
             }
         }
