@@ -21,7 +21,7 @@ spec:
     - "cat"
     tty:  true
   - name: docker
-    image: docker:18.09.2
+    image: docker:23.04
     command: ["cat"]
     tty: true
     volumeMounts:
