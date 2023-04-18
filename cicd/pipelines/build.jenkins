@@ -23,10 +23,6 @@ spec:
     volumeMounts:
     - name: docker-config
       mountPath: /kaniko/.docker/
-    resourceRequestCpu: "400m"
-    resourceRequestMemory: "128Mi"
-    resourceLimitCpu: "1"
-    resourceLimitMemory: "1024Mi"
   - name: helmctl
     image: dmi3x3/helmctl:1.0.0
     command:
