@@ -68,7 +68,7 @@ spec:
         stage ('checkout') {
             steps {
                 script {
-                    //def repo =
+
                     //def TAG_NAME = sh(returnStdout: true, script: "git --no-pager tag --points-at HEAD").trim()
                     checkout scm
                     rev = sh(script: 'git log -1 --format=\'%h.%ad\' --date=format:%Y%m%d-%H%M | cat', returnStdout: true).trim()
