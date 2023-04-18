@@ -24,11 +24,11 @@ spec:
     image: docker:23.0.4
     command: ["cat"]
     tty: true
-    volumeMounts:
+#    volumeMounts:
 #    - name: docker-sock
 #      mountPath: /var/run/docker.sock
-    - name: docker-config
-      mountPath: /root/.docker/
+#    - name: docker-config
+#      mountPath: /root/.docker/
   volumes:
 #  - name: docker-sock
 #    hostPath:
