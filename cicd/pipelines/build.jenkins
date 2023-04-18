@@ -30,9 +30,9 @@ spec:
     - name: docker-config
       mountPath: /root/.docker/
   volumes:
-  - name: docker-sock
-    hostPath:
-      path: /var/run/docker.sock
+#  - name: docker-sock
+#    hostPath:
+#      path: /var/run/docker.sock
   - name: docker-config
     secret:
       secretName: dockercred
