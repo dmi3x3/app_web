@@ -57,7 +57,7 @@ spec:
         skipDefaultCheckout true
     }
     environment {
-    //BUILD_TAG_NAME = '${BUILD_NUMBER}'
+    //BUILD_TAG_NAME =  '${BUILD_NUMBER}'
     //TAG_NAME = sh(returnStdout: true, script: "git describe --tags").trim()
     //IMAGE_BASE = '${DOCKER_REPO}/${IMAGE_NAME}'
     DOCKER_REPO = 'dmi3x3'
