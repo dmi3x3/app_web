@@ -23,6 +23,8 @@ spec:
     volumeMounts:
     - name: docker-config
       mountPath: /kaniko/.docker/
+    - name: docker-config
+      mountPath: /root/.docker/
   - name: helmctl
     image: dmi3x3/helmctl:1.0.0
     command:
