@@ -22,7 +22,7 @@ spec:
     tty: true
     volumeMounts:
     - name: docker-config
-      mountPath: /home/kaniko/.docker/
+      mountPath: /kaniko/.docker/
   - name: helmctl
     image: dmi3x3/helmctl:1.0.0
     command:
@@ -78,8 +78,6 @@ spec:
             steps {
                 container('kaniko') {
                     sh """
-                    ls -lh /home/kaniko/.docker/
-                    ls -lh /root/.docker/
                     /kaniko/executor --dockerfile Dockerfile --context `pwd`/ --verbosity debug --insecure --skip-tls-verify --destination ${DOCKER_REPO}/${IMAGE_NAME}:${revision}
                      """
                 }
